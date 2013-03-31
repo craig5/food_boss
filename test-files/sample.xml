@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- vim: set tabstop=2 expandtab shiftwidth=2 softtabstop=2: -->
+
+<!--
+  Format notes:
+    - Equipment is not specifically mentioned anywhere.
+        It would help to present a list of required equipment at the top.
+        Especially for beginners.
+
+    - The id attr in the recipe tag cannot be guaranteed to be unique.
+        One idea is to scope the recipe. Eg. have a domain name as a recipe attr.
+
+    - Version may be better as an attr of the recipe, not a tag in the metdadata section.
+-->
+
+<recipe version='0.1' display='Strawberry Shortcake' id='1234'>
+
+<metadata>
+  <!-- This id is a short name that can be referenced elsewhere.
+      A little dangerous though... the id above may be better. -->
+  <id>strawberry-shortcake</id>
+  <version>2</version>
+  <type>dessert</type>
+  <type>fruit</type>
+  <complexity>intermediate</complexity>
+
+  <author>
+	  <name>Joe Smith</name>
+	  <email>joe@example.com</email>
+  </author>
+  <source url='http://example.com/recipe.html'>
+    Description/book name/...
+    URL attribute is optional.
+  </source>
+  <!-- There can only be one yield tag. -->
+  <yield number='5' items='shortcakes' />
+  <timing type='prep' unit='hours'>1</timing>
+  <timing type='cook' unit='hours'>0.5</timing>
+	<note>
+		Some note about the recipe as a whole.
+    It can contain an 'abtract' or maybe some notes about how the recipe
+    was created.
+	</note>
+
+  <img type='photo'>pic-1234.jpg</img>
+</metadata>
+
+<body>
+  <step title='Creme Diplomat' id='creme'>
+    <img type='video'>1234/step1.mpg</img>
+    <ingredient recipe="pastry-cream" amount="800" measure="g" />
+    <ingredient name="cream" amount="700" measure="ml" prep="whipped"
+	    note="divided" />
+    <description>
+      Whip cream. Set aside.
+      Whip pastry cream. Add approx 100ml cream.
+      Pastry cream should be "soft".
+      Add approx. 1/3 of whipped cream.
+      Wait until mixture is blended smoothly.
+      Add rest of cream.
+      Beat until mixed smooth.
+    </description>
+    <description type='short'>
+      Whip cream. Combine.
+    </description>
+  </step>
+
+  <step title="Shortcake/Shortbread">
+    <!-- temp should allow for 'low-broil' or 'high-broil.
+         For non-numeric values, the unit is optional. -->
+    <oven temperature="350" unit="F" />
+    <!-- ingredients can have optional comments:
+          <ingredient ...>Some comment...</ingredient> -->
+    <ingredient name="cake flour" amount="2.75" measure="cup" prep='sifted'/>
+    <ingredient name="sugar" amount=".25" measure="cup" />
+    <ingredient name="baking powder" amount="4" measure="teaspoon" />
+    <ingredient name="salt" amount="1" measure="teaspoon" />
+    <ingredient name="butter" amount="10" measure="tablespoon"
+	    prep="chilled, cut into 1-oz pieces" />
+    <ingredient name="cream" amount="1" measure="cup" />
+    <note>
+        Dough came out very wet.
+        Next time, only put in about 1/2 - 3/4 of the cream.
+        Mix. Add more cream as it is absorbed.
+    </note>
+    <description>
+      Combine stuff... do things... etc.
+    </description>
+  </step>
+
+  <serve>
+    Some notes about serving the dish.
+  </serve>
+</body>
+
+<preparation_notes>
+  <note timestamp='20130301:130000' who='Craig'>
+    A bunch of comments about when it was made on 1 March, 2013 at 1pm *UTC*.
+    UTC because I REALLY do not want to deal with time zones or daylight savings time.
+    Can add one of these notes every time it is made.
+  </note>
+</preparation_notes>
+</recipe>

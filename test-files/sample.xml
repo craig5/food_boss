@@ -18,8 +18,8 @@
 <metadata>
   <!-- This id is a short name that can be referenced elsewhere.
       A little dangerous though... the id above may be better. -->
-  <id>strawberry-shortcake</id>
-  <version>2</version>
+  <short-name>strawberry-shortcake</short-name>
+  <revision>2</revision>
   <type>dessert</type>
   <type>fruit</type>
   <complexity>intermediate</complexity>
@@ -33,7 +33,7 @@
     URL attribute is optional.
   </source>
   <!-- There can only be one yield tag. -->
-  <yield number='5' items='shortcakes' />
+  <yield items='shortcakes'>5</yield>
   <timing type='prep' unit='hours'>1</timing>
   <timing type='cook' unit='hours'>0.5</timing>
 	<note>

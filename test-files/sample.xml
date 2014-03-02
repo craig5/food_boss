@@ -94,7 +94,7 @@
 </body>
 
 <preparation_notes>
-  <note timestamp='20130301:130000' who='Craig'>
+  <note timestamp='2013-03-01T13:00:00' who='Craig'>
     A bunch of comments about when it was made on 1 March, 2013 at 1pm *UTC*.
     UTC because I REALLY do not want to deal with time zones or daylight savings time.
     Can add one of these notes every time it is made.

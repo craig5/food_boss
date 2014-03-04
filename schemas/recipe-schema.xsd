@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+
+  <xs:element name="recipe">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element name="metadata">
+	  <xs:complexType>
+	    <xs:sequence>
+	      <xs:element name="short-name" type="xs:string"/>
+	      <xs:element name="revision" type="xs:integer"/>
+	      <xs:element name="type" type="xs:string" maxOccurs="unbounded"/>
+	      <xs:element name="complexity" type="complexity_enum"/>
+	      <xs:element name="author" type="person_type"/>
+	      <xs:element name="source" type="source_type"/>
+	      <xs:element name="yield" type="yield_type"/>
+	      <xs:element name="timing" type="timing_type" maxOccurs="unbounded"/>
+	      <xs:element name="note" type="string_preserve_whitespace"/>
+	      <xs:element name="img" type="img_type"/>
+	    </xs:sequence>
+	  </xs:complexType>
+	</xs:element>
+
+	<xs:element name="body">
+	  <xs:complexType>
+	    <xs:sequence>
+	      <xs:element name="step" type="step_type" maxOccurs="unbounded"/>
+	      <xs:element name="serve" type="string_preserve_whitespace"/>
+	    </xs:sequence>
+	  </xs:complexType>
+	</xs:element>
+
+	<xs:element name="preparation_notes">
+	  <xs:complexType>
+	    <xs:sequence>
+	      <xs:element name="note" type="prep_note_type" maxOccurs="unbounded"/>
+	    </xs:sequence>
+	  </xs:complexType>
+	</xs:element>
+
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:decimal" use="required" fixed="0.1"/>
+      <xs:attribute name="display" type="xs:string" use="required"/>
+      <xs:attribute name="id" type="xs:integer" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- SUBTYPES -->
+
+  <xs:complexType name="step_type">
+    <xs:sequence>
+      <xs:element name="oven" type="oven_type" minOccurs="0"/>
+      <xs:element name="img" type="img_type" minOccurs="0"/>
+      <xs:element name="ingredient" type="ingredient_type" maxOccurs="unbounded"/>
+      <xs:element name="note" type="string_preserve_whitespace" minOccurs="0"/>
+      <xs:element name="description" type="string_preserve_whitespace_with_type" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="title" type="xs:string"/>
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="oven_type">
+    <xs:attribute name="temperature" type="temp_value_type"/>
+    <xs:attribute name="unit" type="temp_unit_type"/>
+  </xs:complexType>
+
+  <xs:simpleType name="temp_value_type">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="600"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="temp_unit_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="K"/>
+      <xs:enumeration value="F"/>
+      <xs:enumeration value="C"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="source_type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+	<xs:attribute name="url" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="serve_type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="img_type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+	<xs:attribute name="type" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="yield_type">
+    <xs:simpleContent>
+      <xs:extension base="xs:integer">
+	<xs:attribute name="items" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="timing_type">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+	<xs:attribute name="type" type="xs:string"/>
+	<xs:attribute name="unit" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="string_preserve_whitespace">
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="preserve"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="string_preserve_whitespace_with_type">
+    <xs:simpleContent>
+      <xs:extension base="string_preserve_whitespace">
+	<xs:attribute name="type">
+	  <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="short"/>
+              <xs:enumeration value="medium"/>
+              <xs:enumeration value="long"/>
+	    </xs:restriction>
+	  </xs:simpleType>
+	</xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="prep_note_type">
+    <xs:simpleContent>
+      <xs:extension base="string_preserve_whitespace">
+	<xs:attribute name="timestamp" type="xs:dateTime"/>
+	<xs:attribute name="who" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="complexity_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="trivial"/>
+      <xs:enumeration value="simple"/>
+      <xs:enumeration value="intermediate"/>
+      <xs:enumeration value="difficult"/>
+      <xs:enumeration value="professional"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="person_type">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="email" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ingredient_type">
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="recipe" type="xs:string"/>
+    <xs:attribute name="note" type="xs:string"/>
+    <xs:attribute name="prep" type="xs:string"/>
+    <xs:attribute name="amount" type="xs:decimal" use="required"/>
+    <xs:attribute name="measure" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="C"/>
+          <xs:enumeration value="cup"/>
+          <xs:enumeration value="g"/>
+          <xs:enumeration value="gram"/>
+          <xs:enumeration value="L"/>
+          <xs:enumeration value="liter"/>
+          <xs:enumeration value="ml"/>
+          <xs:enumeration value="milliliter"/>
+          <xs:enumeration value="oz"/>
+          <xs:enumeration value="ounce"/>
+          <xs:enumeration value="lb"/>
+          <xs:enumeration value="pound"/>
+          <xs:enumeration value="T"/>
+          <xs:enumeration value="tablespoon"/>
+          <xs:enumeration value="t"/>
+          <xs:enumeration value="teaspoon"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>

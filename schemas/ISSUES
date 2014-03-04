@@ -1,0 +1,1 @@
+* Ingredients and be from other recipes, but in those cases they don't have "name", but have "recipe". Does that mean that name and recipe are mutually exclusive? Or should name be optional, which would lead to possibility of ingredients without names or recipes.

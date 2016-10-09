@@ -1,4 +1,6 @@
+# development files
 *.py[cod]
+venv/
 
 # C extensions
 *.so
@@ -15,7 +17,6 @@ var
 sdist
 develop-eggs
 .installed.cfg
-lib
 lib64
 
 # Installer logs
@@ -38,3 +39,6 @@ nosetests.xml
 \#*
 .#*
 *~
+
+# vim temp files
+*.swp

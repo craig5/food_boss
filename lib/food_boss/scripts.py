@@ -1,5 +1,5 @@
 """
-All CLIs start here using "entry-points".
+Simple script to manage recipes.
 """
 # core python libraries
 import argparse
@@ -9,16 +9,17 @@ import logging
 import food_boss.config
 
 
-class FoodBossMainCli(food_boss.config.GlobalConfig):
+class FoodBossCli(food_boss.config.GlobalConfig):
 
     def __init__(self):
         self.__init_vars()
         self.__init_root_logger()
+        self.__init_cli()
 
     def __init_vars(self):
         pass
 
-    def __init_logger(self):
+    def __init_root_logger(self):
         logging.basicConfig()
         self.logger = logging.getLogger(self.base_logger_name)
 
@@ -31,10 +32,20 @@ class FoodBossMainCli(food_boss.config.GlobalConfig):
             )
 
     def parse_args(self):
-        pass
+        self.args = self.cli.parse_args()
+        if self.args.verbose:
+            self.logger.setLevel(logging.DEBUG)
+            for h in self.logger.handlers:
+                h.setLevel(logging.DEBUG)
+            self.logger.debug('Logger reset to debug.')
 
     def main(self):
         self.logger.debug('Inside main.')
         self.parse_args()
+
+    @staticmethod
+    def main_static():
+        fbc = FoodBossCli()
+        fbc.main()
 
 # End of file.

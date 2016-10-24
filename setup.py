@@ -57,7 +57,7 @@ setup_args['cmdclass']['info'] = InfoCommand
 setup_args['package_dir'] = {'': _LIB_DIR}
 setup_args['entry_points'] = {
     'console_scripts': [
-        'food_boss = food_boss.scripts:cli'
+        'food_boss = food_boss.scripts:FoodBossCli.main_static'
     ]
 }
 

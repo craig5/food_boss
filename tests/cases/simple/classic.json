@@ -1,0 +1,14 @@
+{
+  "id": 1234,
+  "title": "Strawberry Shortcake",
+  "type": ["dessert", "fruit"],
+  "complexity": "intermediate",
+  "author": {
+    "name": "Joe Smith",
+    "email": "joe@example.com"
+    },
+  "ingredients": [
+    {"name": "cake flour", "amount": 2.76, "measure": "cup", "prep": "sifted"},
+    {"name": "sugar", "amount": 0.25, "measure": "cup"}
+    ]
+}
